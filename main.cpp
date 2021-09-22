@@ -57,6 +57,9 @@ void IntegerListTest()
     for (const int& x : integerList)
         resultantSequence.Append(x);
     cout << (integerList.IsValid() && SequencesMatch(resultantSequence, REVERSE_VALUES) ? "passed" : "failed") << "...insert test " << endl;
+
+    resultantSequence.Reverse();
+    cout << (integerList.IsValid() && SequencesMatch(resultantSequence, VALUES) ? "passed" : "failed") << "...reversal test " << endl;
     resultantSequence.Clear();
 
     integerList.Clear();
@@ -317,16 +320,25 @@ int main()
     cout << "\n\nTesting List<int>...\n\n";
     IntegerListTest<List<int>>();
 
-    //List<string> names;
-    //names.Insert("Charlie");
-    //names.Insert("Bob");
-    //names.Insert("Aaron");
-    //names.Append("Xavier");
-    //names.Append("Yolanda");
-    //names.Append("Zoe");
 
-    //for (const string& name : names)
-    //    cout << "name: " << name << endl;
+    cout << "\n\nTestling List<string>...\n\n";
+    List<string> names;
+    names.Insert("Charlie");
+    names.Insert("Bob");
+    names.Insert("Aaron");
+    names.Append("Xavier");
+    names.Append("Yolanda");
+    names.Append("Zoe");
+
+    cout << "forward...\n";
+    for (const string& name : names)
+        cout << "name: " << name << "\n";
+
+    cout << "\nreverse...\n";
+    names.Reverse();
+    for (const string& name : names)
+        cout << "name: " << name << "\n";
+
     return 0;
 } 
 
