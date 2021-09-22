@@ -25,6 +25,9 @@ public:
     // Append an item to the end of the list. O(1)
     void Append(const T& item);
 
+    // Reverses the list. O(n)
+    void Reverse();
+
     // returns true if the list contains no elements
     bool IsEmpty() const;
 
@@ -173,6 +176,26 @@ void List<T>::Append(const T& item)
         tail->next = current;
     tail = current;
     size++;
+}
+
+
+template<class T>
+void List<T>::Reverse()
+{
+    Node* current = head;
+    Node* previous = nullptr;
+    Node* next = nullptr;
+    while (current != nullptr)
+    {        
+        next = current->next;
+        current->next = previous;
+
+        previous = current;
+        current = next;
+    }
+    Node* temp = head;
+    head = tail;
+    tail = temp;
 }
 
 
