@@ -69,6 +69,28 @@ void IntegerListTest()
         resultantSequence.Append(x);
     cout << (integerList.IsValid() && SequencesMatch(resultantSequence, VALUES) ? "passed" : "failed") << "...append test " << endl;
     resultantSequence.Clear();
+
+    // test copy constructor
+    T copyConstructedList(integerList);
+    cout << (integerList.IsValid() && copyConstructedList.IsValid() && SequencesMatch(copyConstructedList, VALUES) ? "passed" : "failed") << "...copy constructor test" << endl;
+    copyConstructedList.Clear();
+
+    // test copy assignment operator
+    copyConstructedList = integerList;
+    cout << (integerList.IsValid() && copyConstructedList.IsValid() && SequencesMatch(copyConstructedList, VALUES) ? "passed" : "failed") << "...copy assignment test" << endl;
+    copyConstructedList.Clear();
+
+    // test move constructor
+    T moveConstructedList(std::move(integerList));
+    cout << (integerList.IsValid() && integerList.Size() == 0 && moveConstructedList.IsValid() && SequencesMatch(moveConstructedList, VALUES) ? "passed" : "failed") << "...move constructor test" << endl;
+    moveConstructedList.Clear();
+
+    // test move assignment operator
+    for (const int& x : VALUES)
+        integerList.Append(x);
+    moveConstructedList = std::move(integerList);
+    cout << (integerList.IsValid() && integerList.Size() == 0 && moveConstructedList.IsValid() && SequencesMatch(moveConstructedList, VALUES) ? "passed" : "failed") << "...move assignment operator test" << endl;
+    moveConstructedList.Clear();
 }
 
 
@@ -338,6 +360,7 @@ int main()
     names.Reverse();
     for (const string& name : names)
         cout << "name: " << name << "\n";
+    names.Clear();
 
     return 0;
 } 
