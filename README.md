@@ -33,3 +33,81 @@ To understand which tree to select for your project:
     AVLTreeMorris<T>     slow    fast     slow       slow     2 ptrs + 1 int per node
     
 Note, if you are so memory constrained that you are considering using AVLTreeMorris<T>, make sure your compiler is configured for proper padding and alignment to benefit from AVLTreeMorris<T>'s smaller node sizes.
+  
+## Building
+
+Both a Makefile and MSVS sln are provided.  Will build as-is without modification.
+  
+## Tests
+  
+The code is tested using the following tests (see main.cpp), and have been verified leak-free using the MSVS heap profiler.
+  
+    Testing AVLTree<int>...
+    
+    passed...insert test
+    passed...duplicate insertion test
+    passed...interrupted iteration test
+    passed...insert after interruption test
+    passed...range-based iteration test
+    passed...first postorder iteration test
+    passed...second postorder iteration test
+    passed...interrupted postorder iteration test
+    passed...iteration after postorder iteration test
+    passed...search found test
+    passed...search not found test
+    passed...intersection test
+    passed...float intersection test
+    passed...clear all items
+    passed...remove nonexistent item
+    passed...remove root with no children
+    passed...remove root with right child
+    passed...remove root with left child
+    passed...remove root with two children
+    passed...remove non-root with no children
+    passed...remove non-root with left child
+    passed...remove non-root with right child
+    passed...remove non-root with two children
+    passed...remove n from 1000 element tree test
+    passed...remove n from 1000 element tree (reverse insertion) test
+    
+    
+    Testing RBTree<int>...
+    
+    passed...insert test
+    passed...duplicate insertion test
+    passed...interrupted iteration test
+    passed...insert after interruption test
+    passed...range-based iteration test
+    passed...first postorder iteration test
+    passed...second postorder iteration test
+    passed...interrupted postorder iteration test
+    passed...iteration after postorder iteration test
+    passed...search found test
+    passed...search not found test
+    passed...intersection test
+    passed...float intersection test
+    passed...clear all items
+    passed...remove nonexistent item
+    passed...remove root with no children
+    passed...remove root with right child
+    passed...remove root with left child
+    passed...remove root with two children
+    passed...remove non-root with no children
+    passed...remove non-root with left child
+    passed...remove non-root with right child
+    passed...remove non-root with two children
+    passed...remove n from 1000 element tree test
+    passed...remove n from 1000 element tree (reverse insertion) test
+    
+    
+    Testing List<int>...
+    
+    passed...initializer_list test
+    passed...clear test
+    passed...insert test
+    passed...reversal test
+    passed...append test
+    passed...copy constructor test
+    passed...copy assignment test
+    passed...move constructor test
+    passed...move assignment operator test
