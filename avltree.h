@@ -35,9 +35,9 @@ public:
     AVLTree();
     virtual ~AVLTree(); // custom destructor (rule of 5)
     //AVLTree(const AVLTree<T>& other); // copy constructor (rule of 5)
-    AVLTree(AVLTree<T>&& other); // move constructor (rule of 5)
     //AVLTree<T>& operator=(const AVLTree<T>& other); // copy assignment operator (rule of 5)
-    //AVLTree<T>& operator=(AVLTree<T>&& other); // move assignment operator (rule of 5)
+    AVLTree(AVLTree<T>&& other); // move constructor (rule of 5)
+    AVLTree<T>& operator=(AVLTree<T>&& other); // move assignment operator (rule of 5)
 
         /* TODO: AVLTree currently violates rule of 5. It has a custom destructor and move constructor, but does
            not implement copy, copy-assignment, or move-assignment.
@@ -191,6 +191,7 @@ void AVLTree<T>::Clear()
 
 template<class T>
 AVLTree<T>::AVLTree(AVLTree&& other) // move constructor (rule of 5)
+    : root(nullptr)
 {
     root = other.root;
     other.root = nullptr;
@@ -200,18 +201,18 @@ AVLTree<T>::AVLTree(AVLTree&& other) // move constructor (rule of 5)
 #if 0
 template<class T>
 AVLTree<T>::AVLTree(const AVLTree<T>& other) // copy constructor (rule of 5)
-{}
+    : root(nullptr)
+{
+#warning This implementation is incomplete.
 
-
-
+}
 
 
 template<class T>
 AVLTree<T>& AVLTree<T>::operator=(const AVLTree<T>& other) // copy assignment operator (rule of 5)
 {
-    // Deconstruct any existing parts of the tree.
-    for (typename ConstPostorder::Iterator itr = ConstPostorder(*this).begin(); itr != ConstPostorder(*this).end(); ++itr)
-        delete itr.GetNode();
+#warning This implementation is incomplete.
+    Clear();
     
     // Construct new elements which are copies of the elements in other.
     // Don't call Insert(). Insert does way more than is necessary. We just need to duplicate the structure
@@ -226,14 +227,18 @@ AVLTree<T>& AVLTree<T>::operator=(const AVLTree<T>& other) // copy assignment op
 
     }
 } 
+#endif
+
 
 template<class T>
 AVLTree<T>& AVLTree<T>::operator=(AVLTree<T>&& other) // move assignment operator (rule of 5)
 {
-    // Deconstruct any existing parts of the three.
-    // Steal other's parts.
+    Clear();
+    root = other.root;
+    other.root = nullptr;
+    return *this;
 }
-#endif
+
 
 
 template<class T>
