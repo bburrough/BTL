@@ -14,10 +14,11 @@ class List
 public:
     List();
     List(std::initializer_list<T> l); // initialize List with a static array of values
-    virtual ~List();
-    List(const List& other); // copy constructor
-    List(List<T>&& other); // move constructor
-        // TODO: Currently violates rule of five. To satisfy rule of 5, need copy assignment and move assignment operators.
+    virtual ~List(); // custom destructor (rule of 5)
+    List(const List& other); // copy constructor (rule of 5)
+    List<T>& operator=(const List& other); // copy assignment operator (rule of 5)
+    List(List<T>&& other); // move constructor (rule of 5)
+    List<T>& operator=(List&& other); // move assignment operator (rule of 5)
 
     // Insert an item at the front of the list. O(1)
     void Insert(const T& item);
@@ -145,12 +146,53 @@ List<T>::List(const List<T>& other) // copy constructor
 
 
 template<class T>
+List<T>& List<T>::operator=(const List& other) // copy assignment operator
+{
+    Clear();
+    size = other.size;
+
+    Node* otherCurrent = other.head;
+    Node* previous(nullptr);
+    Node* node(nullptr);
+    while (otherCurrent != nullptr)
+    {
+        node = new Node(otherCurrent->item);
+        if (head == nullptr)
+            head = node;
+        if (previous != nullptr)
+            previous->next = node;
+        previous = node;
+        otherCurrent = otherCurrent->next;
+        if (otherCurrent == nullptr)
+            tail = node;
+    }
+    return *this;
+}
+
+
+template<class T>
 List<T>::List(List<T>&& other) // move constructor
     : head(other.head), tail(other.tail), size(other.size)
 {
     other.head = nullptr;
     other.tail = nullptr;
     other.size = 0;
+}
+
+
+template<class T>
+List<T>& List<T>::operator=(List&& other) // move assignment operator
+{
+    Clear();
+    head = other.head;
+    tail = other.tail;
+    size = other.size;
+
+    other.head = nullptr;
+    other.tail = nullptr;
+    other.size = 0;
+
+    return *this;
 }
 
 
